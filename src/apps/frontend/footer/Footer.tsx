@@ -1,23 +1,9 @@
-import { Layout } from "antd";
-
-const { Footer } = Layout;
-
 const FooterIndex = () => {
   return (
-    <Footer
-      style={{
-        textAlign: "center",
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        width: "100%",
-        background: "#fff",
-        borderTop: "1px solid #eee",
-      }}
-    >
+    <footer className="w-full bg-white border-t border-gray-100 py-6 text-center text-sm text-gray-600">
       Nashik ©{new Date().getFullYear()} Created by Ant UED
-    </Footer>
-  );
-};
+    </footer>
+  )
+}
 
-export default FooterIndex;
+export default FooterIndex

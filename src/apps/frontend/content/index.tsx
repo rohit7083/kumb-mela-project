@@ -1,55 +1,66 @@
-import React from "react";
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { BookOpen, MapPin } from "lucide-react"
+import React from "react"
 
 interface Place {
-  id: number;
-  name: string;
-  image: string;
-  category: string;
-  distance_from_nashik_km: number;
-  description: string;
+  id: number
+  name: string
+  image: string
+  category: string
+  distance_from_nashik_km: number
+  description: string
+    map_link?: string
+  wikipedia?: string
 }
 
 type Props = {
-  place: Place;
-};
+  place: Place
+}
 
 const PlaceCard: React.FC<Props> = ({ place }) => {
   return (
     <>
-<h1>Top Best Place to visit </h1>
-    <div className=" m-6 mb-30 max-w-sm bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition duration-300">
-      <img
-        src={place.image}
-        alt={place.name}
-        className="w-full h-48 object-cover"
-      />
-
-      <div className="p-4 space-y-2">
-
-        <span className="text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded-full">
-          {place.category}
-        </span>
-
-        <h2 className="text-lg font-semibold text-gray-800">
-          {place.name}
-        </h2>
-
-        <p className="text-sm text-gray-500">
-          {place.distance_from_nashik_km} km from Nashik
-        </p>
-
-        <p className="text-sm text-gray-600 line-clamp-2">
-          {place.description}
-        </p>
-
-        <button className="mt-2 w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition">
-          View Details
-        </button>
-
+      <div className="mt-10 mx-5 mb-6">
+        <h2 className="text-xl font-bold">Nearby Places</h2>
       </div>
-    </div>
-    </>
-  );
-};
+      <Card className="w-80 mx-5 border border-black rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
+        <img
+          alt={place.name}
+          src={place.image}
+          className="w-full h-48 object-cover"
+        />
+        <CardContent>
+          <Badge variant="orange">{place.category}</Badge>
 
-export default PlaceCard;
+          <h3 className="text-base font-semibold mt-2">{place.name}</h3>
+
+          <p className="text-sm text-muted-foreground">
+            {place.distance_from_nashik_km} km from Nashik
+          </p>
+
+          <p className="text-sm mt-2 line-clamp-2">{place.description}</p>
+
+          <div className="flex gap-2 mt-4">
+
+      <Button className="flex-1 bg-black hover:bg-gray-800">
+        View Details
+      </Button>
+
+      <Button variant="outline"  onClick={() => window.open(place.map_link, "_blank")}>
+        <MapPin className="w-4 h-4" />
+      </Button>
+
+      <Button variant="outline" onClick={() => window.open(place.wikipedia, "_blank")}>
+        <BookOpen className="w-4 h-4" />
+      </Button>
+
+    </div>
+        </CardContent>
+      </Card>
+    </>
+  )
+}
+
+export default PlaceCard
