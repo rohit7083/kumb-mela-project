@@ -3,19 +3,22 @@ import { Input } from "@/components/ui/input"
 import { Sheet } from "@/components/ui/sheet"
 import { Menu, Search, X } from "lucide-react"
 import { useState } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
 
 const items = [
-  { key: "1", label: "Home" },
-  { key: "2", label: "About Us" },
-  { key: "3", label: "Services" },
-  { key: "4", label: "Pages" },
-  { key: "5", label: "Blog" },
-  { key: "6", label: "Contact Us" },
+  { key: "1", label: "Home", path: "/" },
+  { key: "3", label: "Hotels", path: "/hotels" },
+  { key: "4", label: "Tourism", path: "/tourism" },
+  { key: "5", label: "Near By Place", path: "/nearby-place" },
+  { key: "6", label: "Kumbha-Mela", path: "/kumbh-mela" },
+  { key: "7", label: "About Us", path: "/about" },
+  { key: "8", label: "Contact Us", path: "/contact" },
 ]
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
-  const [selected, setSelected] = useState("1")
+  const navigate = useNavigate()
+  const location = useLocation()
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-100">
@@ -29,9 +32,9 @@ const Navbar = () => {
             {items.map((item) => (
               <button
                 key={item.key}
-                onClick={() => setSelected(item.key)}
+                onClick={() => { navigate(item.path); setOpen(false) }}
                 className={`px-4 h-full flex items-center text-sm cursor-pointer transition-colors border-b-2 ${
-                  selected === item.key
+                  location.pathname === item.path
                     ? "text-blue-600 border-blue-600"
                     : "text-gray-800 border-transparent hover:text-blue-600"
                 }`}
@@ -66,9 +69,9 @@ const Navbar = () => {
           {items.map((item) => (
             <button
               key={item.key}
-              onClick={() => { setSelected(item.key); setOpen(false) }}
+              onClick={() => { navigate(item.path); setOpen(false) }}
               className={`px-4 py-3 text-sm text-left transition-colors ${
-                selected === item.key
+                location.pathname === item.path
                   ? "text-blue-600 bg-blue-50"
                   : "text-gray-800 hover:bg-gray-50"
               }`}
