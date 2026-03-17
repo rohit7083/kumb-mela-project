@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Sheet } from "@/components/ui/sheet"
-import { Menu, Search, X } from "lucide-react"
-import { useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Sheet } from "@/components/ui/sheet";
+import { Menu, Search, X } from "lucide-react";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const items = [
   { key: "1", label: "Home", path: "/" },
@@ -13,26 +13,30 @@ const items = [
   { key: "6", label: "Kumbha-Mela", path: "/kumbh-mela" },
   { key: "7", label: "About Us", path: "/about" },
   { key: "8", label: "Contact Us", path: "/contact" },
-]
+];
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false)
-  const navigate = useNavigate()
-  const location = useLocation()
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-100">
       <div className="flex items-center justify-between px-5 h-16">
-
         {/* Logo + Desktop Menu grouped at start */}
         <div className="flex items-center h-16">
-          <span className="font-bold text-lg text-black whitespace-nowrap mr-4">Discover Nashik</span>
+          <span className="font-bold text-lg text-black whitespace-nowrap mr-4">
+            Discover Nashik
+          </span>
 
           <nav className="hidden md:flex h-16 items-end">
             {items.map((item) => (
               <button
                 key={item.key}
-                onClick={() => { navigate(item.path); setOpen(false) }}
+                onClick={() => {
+                  navigate(item.path);
+                  setOpen(false);
+                }}
                 className={`px-4 h-full flex items-center text-sm cursor-pointer transition-colors border-b-2 ${
                   location.pathname === item.path
                     ? "text-blue-600 border-blue-600"
@@ -52,7 +56,12 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Hamburger */}
-        <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setOpen(true)}>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="md:hidden"
+          onClick={() => setOpen(true)}
+        >
           <Menu size={20} />
         </Button>
       </div>
@@ -69,7 +78,10 @@ const Navbar = () => {
           {items.map((item) => (
             <button
               key={item.key}
-              onClick={() => { navigate(item.path); setOpen(false) }}
+              onClick={() => {
+                navigate(item.path);
+                setOpen(false);
+              }}
               className={`px-4 py-3 text-sm text-left transition-colors ${
                 location.pathname === item.path
                   ? "text-blue-600 bg-blue-50"
@@ -82,7 +94,7 @@ const Navbar = () => {
         </nav>
       </Sheet>
     </header>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
