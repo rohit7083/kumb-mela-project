@@ -1,15 +1,17 @@
-import HeroBaner from "./HeroBaner"
-import { placeData } from '../../content/data'
-import PlaceCard from '../../content/index'
+import { placeData } from "../../content/data";
+import FilterSection from "../../filter/index";
+import HeroBaner from "./HeroBaner";
+import TourismCard from "./TourismCard";
 function Tourism() {
   return (
     <>
-  <HeroBaner/>
-        <PlaceCard place={placeData} />
+      <HeroBaner />
+      <FilterSection />
+      {/* <PlaceCard place={placeData} /> */}
 
+      <TourismCard place={placeData} />
     </>
-    
-  )
+  );
 }
 
-export default Tourism
+export default Tourism;

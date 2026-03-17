@@ -19,12 +19,12 @@ type Props = {
   place: Place;
 };
 
-const PlaceCard: React.FC<Props> = ({ place }) => {
+const TourismCard: React.FC<Props> = ({ place }) => {
   return (
     <>
       <div className="mt-10 mx-5 mb-6">
-        <h2 className="text-xl font-bold">Nearby Places</h2>
-      </div>
+  <h2 className="text-xl font-bold">Tourist Places</h2>
+</div>
       <Card className="w-80 mx-5 border border-black rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
         <img
           alt={place.name}
@@ -69,4 +69,4 @@ const PlaceCard: React.FC<Props> = ({ place }) => {
   );
 };
 
-export default PlaceCard;
+export default TourismCard;
