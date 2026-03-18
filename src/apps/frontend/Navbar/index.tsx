@@ -12,7 +12,7 @@ const items = [
   { key: "5", label: "Near By Place", path: "/nearby-place" },
   { key: "6", label: "Kumbha-Mela", path: "/kumbh-mela" },
   { key: "7", label: "About Us", path: "/about" },
-  { key: "8", label: "Contact Us", path: "/contact" },
+  // { key: "8", label: "Contact Us", path: "/contact" },
 ];
 
 const Navbar = () => {
