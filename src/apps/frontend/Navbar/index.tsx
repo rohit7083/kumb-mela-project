@@ -7,12 +7,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const items = [
   { key: "1", label: "Home", path: "/" },
-  { key: "3", label: "Hotels", path: "/hotels" },
+  { key: "3", label: "Explore", path: "/explore" },
   { key: "4", label: "Tourism", path: "/tourism" },
   { key: "5", label: "Near By Place", path: "/nearby-place" },
   { key: "6", label: "Kumbha-Mela", path: "/kumbh-mela" },
+  { key: "8", label: "Travel Info", path: "/travel-info" },
+  { key: "8", label: "History", path: "/history" },
   { key: "7", label: "About Us", path: "/about" },
-  // { key: "8", label: "Contact Us", path: "/contact" },
+
 ];
 
 const Navbar = () => {
