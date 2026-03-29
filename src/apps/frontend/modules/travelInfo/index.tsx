@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { Badge } from '../../../../components/ui/badge';
 import { travelInfo } from './data';
 import SectionHeader from './SectionHeader';
 
-// ✅ Types
 type TransportKey = 'byRoad' | 'byRail' | 'byAir';
 
 interface TravelOption {
@@ -47,20 +47,26 @@ interface TravelInfoType {
   howToReach: Record<TransportKey, HowToReachItem>;
   localTransport: LocalTransport[];
   distancesFromNashik: Distance[];
-  bestTimeToVisit: {
-    seasons: Season[];
-  };
+  bestTimeToVisit: { seasons: Season[] };
 }
+
+const seasonBorder: Record<string, string> = {
+  'Best time to visit': 'border-green-500',
+  'Great for waterfalls': 'border-blue-500',
+  'Avoid if possible': 'border-orange-500',
+};
+
+const seasonBadge: Record<string, string> = {
+  'Best time to visit': 'bg-green-100 text-green-700',
+  'Great for waterfalls': 'bg-blue-100 text-blue-700',
+  'Avoid if possible': 'bg-orange-100 text-orange-700',
+};
 
 const TravelInfoPage = () => {
   const [activeTransport, setActiveTransport] = useState<TransportKey>('byRoad');
 
-  const {
-    howToReach,
-    localTransport,
-    distancesFromNashik,
-    bestTimeToVisit,
-  } = travelInfo as TravelInfoType;
+  const { howToReach, localTransport, distancesFromNashik, bestTimeToVisit } =
+    travelInfo as TravelInfoType;
 
   const transportOptions: { key: TransportKey; label: string; icon: string }[] = [
     { key: 'byRoad', label: 'By Road', icon: '🚗' },
@@ -70,25 +76,29 @@ const TravelInfoPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Header */}
-      <div
-        className="pt-24 pb-12 px-4"
-        style={{ background: 'linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%)' }}
-      >
-        <div className="container-max">
-          <h1
-            className="text-4xl md:text-5xl font-bold text-white mb-4"
-            style={{ fontFamily: 'Playfair Display, serif' }}
-          >
-            Travel Information 🚗
-          </h1>
-          <p className="text-blue-100 text-lg">
-            Everything you need to know to get to and around Nashik
-          </p>
-        </div>
-      </div>
+      {/* Page Content */}
 
-      <div className="container-max px-4 py-10 space-y-12">
+      <div
+  className="pt-8 pb-6 px-4 text-white"
+  style={{ background: "black" }}
+>
+  <div className="max-w-6xl mx-auto space-y-5">
+    
+    <Badge className="bg-white text-blue-700 w-fit">
+      Travel Guide
+    </Badge>
+
+    <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+      Travel Information 🚗
+    </h1>
+
+    <p className="text-blue-100 text-lg max-w-2xl">
+      Everything you need to know to get to and around Nashik
+    </p>
+
+  </div>
+</div>
+      <div className="max-w-6xl mx-auto px-4 md:px-8 py-12 space-y-16">
 
         {/* Best Time to Visit */}
         <section>
@@ -97,37 +107,33 @@ const TravelInfoPage = () => {
             subtitle="Plan your trip according to Nashik's seasons"
             emoji="🗓️"
           />
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {bestTimeToVisit.seasons.map(season => (
+            {bestTimeToVisit.seasons.map((season) => (
               <div
                 key={season.season}
-                className={`card p-6 border-l-4 ${
-                  season.recommendation === 'Best time to visit'
-                    ? 'border-green-500'
-                    : season.recommendation === 'Great for waterfalls'
-                      ? 'border-blue-500'
-                      : 'border-orange-500'
+                className={`bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border-l-4 hover:shadow-lg transition ${
+                  seasonBorder[season.recommendation] ?? 'border-gray-300'
                 }`}
               >
-                <div className="text-3xl mb-3">{season.icon}</div>
-                <h3 className="font-bold text-gray-900 dark:text-white mb-1">
+                <div className="text-4xl mb-3">{season.icon}</div>
+                <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
                   {season.season}
                 </h3>
-                <p className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-1">
+                <p className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-2">
                   {season.weather}
                 </p>
+
                 <span
-                  className={`badge text-xs font-medium mb-2 ${
-                    season.recommendation === 'Best time to visit'
-                      ? 'bg-green-100 text-green-700'
-                      : season.recommendation === 'Great for waterfalls'
-                        ? 'bg-blue-100 text-blue-700'
-                        : 'bg-orange-100 text-orange-700'
+                  className={`inline-block text-xs font-semibold px-3 py-1 rounded-full mb-3 ${
+                    seasonBadge[season.recommendation] ??
+                    'bg-gray-100 text-gray-700'
                   }`}
                 >
                   {season.recommendation}
                 </span>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">
+
+                <p className="text-gray-500 dark:text-gray-400 text-sm">
                   {season.highlights}
                 </p>
               </div>
@@ -143,15 +149,15 @@ const TravelInfoPage = () => {
             emoji="🧭"
           />
 
-          <div className="flex gap-2 mb-6">
-            {transportOptions.map(opt => (
+          <div className="flex flex-wrap gap-3 mb-6">
+            {transportOptions.map((opt) => (
               <button
                 key={opt.key}
                 onClick={() => setActiveTransport(opt.key)}
-                className={`flex items-center gap-2 px-5 py-3 rounded-lg font-medium transition-all ${
+                className={`flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-sm ${
                   activeTransport === opt.key
                     ? 'bg-blue-700 text-white shadow-md'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:bg-gray-50'
+                    : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700'
                 }`}
               >
                 <span>{opt.icon}</span>
@@ -161,8 +167,8 @@ const TravelInfoPage = () => {
           </div>
 
           {howToReach[activeTransport] && (
-            <div className="card p-6 animate-fade-in">
-              <div className="flex items-center gap-3 mb-4">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 md:p-8">
+              <div className="flex items-center gap-3 mb-3">
                 <span className="text-4xl">
                   {howToReach[activeTransport].icon}
                 </span>
@@ -171,7 +177,7 @@ const TravelInfoPage = () => {
                 </h3>
               </div>
 
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
+              <p className="text-gray-500 dark:text-gray-400 mb-6 text-sm">
                 {howToReach[activeTransport].description}
               </p>
 
@@ -181,21 +187,22 @@ const TravelInfoPage = () => {
                     key={i}
                     className="bg-gray-50 dark:bg-gray-700 rounded-xl p-4"
                   >
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+                    <h4 className="font-semibold text-gray-900 dark:text-white">
                       From {opt.from}
                     </h4>
-                    <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                      <p>📏 Distance: {opt.distance}</p>
-                      <p>⏱️ Time: {opt.time}</p>
-                      {opt.trains && <p>🚂 Trains: {opt.trains}</p>}
-                      {opt.bus && <p>🚌 Bus: {opt.bus}</p>}
+
+                    <div className="text-sm text-gray-600 dark:text-gray-400">
+                      <p>📏 {opt.distance}</p>
+                      <p>⏱️ {opt.time}</p>
+                      {opt.trains && <p>🚂 {opt.trains}</p>}
+                      {opt.bus && <p>🚌 {opt.bus}</p>}
                     </div>
                   </div>
                 ))}
               </div>
 
               {howToReach[activeTransport].tips && (
-                <div className="mt-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4">
+                <div className="mt-5 bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4">
                   <p className="text-blue-800 dark:text-blue-300 text-sm">
                     💡 <strong>Tip:</strong>{' '}
                     {howToReach[activeTransport].tips}
@@ -210,27 +217,28 @@ const TravelInfoPage = () => {
         <section>
           <SectionHeader
             title="Distances from Nashik"
-            subtitle="Nashik's connectivity to major cities and destinations"
+            subtitle="Nashik's connectivity to major cities"
             emoji="📏"
           />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {distancesFromNashik.map(dest => (
+            {distancesFromNashik.map((dest) => (
               <div
                 key={dest.city}
-                className="card p-5 flex items-center gap-4"
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 flex items-center gap-4"
               >
-                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-xl flex-shrink-0">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                   🏙️
                 </div>
+
                 <div>
                   <h4 className="font-bold text-gray-900 dark:text-white">
                     {dest.city}
                   </h4>
-                  <p className="text-sm text-blue-700 dark:text-blue-400 font-semibold">
+                  <p className="text-sm text-blue-700 font-semibold">
                     {dest.distance}
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="text-xs text-gray-500">
                     ⏱️ {dest.time}
                   </p>
                 </div>
@@ -243,13 +251,16 @@ const TravelInfoPage = () => {
         <section>
           <SectionHeader
             title="Local Transport"
-            subtitle="Getting around Nashik city and surrounding areas"
+            subtitle="Getting around Nashik"
             emoji="🚌"
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {localTransport.map(transport => (
-              <div key={transport.type} className="card p-5">
+            {localTransport.map((transport) => (
+              <div
+                key={transport.type}
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5"
+              >
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-3xl">{transport.icon}</span>
                   <h3 className="font-bold text-gray-900 dark:text-white">
@@ -257,17 +268,15 @@ const TravelInfoPage = () => {
                   </h3>
                 </div>
 
-                <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
+                <p className="text-gray-500 text-sm mb-3">
                   {transport.description}
                 </p>
 
-                <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 mb-3">
-                  <p className="text-green-800 dark:text-green-300 text-sm font-medium">
-                    💰 {transport.avgCost}
-                  </p>
-                </div>
+                <p className="text-green-700 text-sm font-medium">
+                  💰 {transport.avgCost}
+                </p>
 
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-400 mt-2">
                   💡 {transport.tips}
                 </p>
               </div>
@@ -276,8 +285,8 @@ const TravelInfoPage = () => {
         </section>
 
         {/* Emergency */}
-        <section className="bg-red-50 dark:bg-red-900/20 rounded-2xl p-6 md:p-8">
-          <h3 className="text-xl font-bold text-red-800 dark:text-red-300 mb-4">
+        <section className="bg-red-50 rounded-2xl p-6">
+          <h3 className="text-2xl font-bold text-red-700 mb-6">
             🆘 Emergency Numbers
           </h3>
 
@@ -287,15 +296,13 @@ const TravelInfoPage = () => {
               { label: 'Ambulance', number: '108', icon: '🚑' },
               { label: 'Fire', number: '101', icon: '🚒' },
               { label: 'Tourist Help', number: '1800-111-363', icon: '🏛️' },
-            ].map(item => (
+            ].map((item) => (
               <div
                 key={item.label}
-                className="bg-white dark:bg-gray-800 rounded-xl p-4 text-center"
+                className="bg-white rounded-xl p-4 text-center shadow"
               >
-                <div className="text-2xl mb-1">{item.icon}</div>
-                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {item.label}
-                </p>
+                <div className="text-3xl">{item.icon}</div>
+                <p className="text-sm font-medium">{item.label}</p>
                 <p className="text-xl font-bold text-red-600">
                   {item.number}
                 </p>
@@ -303,6 +310,7 @@ const TravelInfoPage = () => {
             ))}
           </div>
         </section>
+
       </div>
     </div>
   );

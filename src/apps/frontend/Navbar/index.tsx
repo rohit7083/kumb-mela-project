@@ -1,14 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet } from "@/components/ui/sheet";
-import { Menu, Search, X } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
+import { Menu, Moon, Search, Sun, X } from "lucide-react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const items = [
   { key: "1", label: "Home", path: "/" },
   { key: "3", label: "Explore", path: "/explore" },
-  { key: "4", label: "Tourism", path: "/tourism" },
+  // { key: "4", label: "Tourism", path: "/tourism" },
   { key: "5", label: "Near By Place", path: "/nearby-place" },
   { key: "6", label: "Kumbha-Mela", path: "/kumbh-mela" },
   { key: "8", label: "Travel Info", path: "/travel-info" },
@@ -21,14 +22,15 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-100">
+    <header className="sticky top-0 z-50 w-full bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
       <div className="flex items-center justify-between px-5 h-16">
         {/* Logo + Desktop Menu grouped at start */}
         <div className="flex items-center h-16">
-          <span className="font-bold text-lg text-black whitespace-nowrap mr-4">
-            Discover Nashik
+          <span className="font-bold text-lg text-black dark:text-white whitespace-nowrap mr-4">
+            Discover <span className="text-red-800">Nashik</span>
           </span>
 
           <nav className="hidden md:flex h-16 items-end">
@@ -42,7 +44,7 @@ const Navbar = () => {
                 className={`px-4 h-full flex items-center text-sm cursor-pointer transition-colors border-b-2 ${
                   location.pathname === item.path
                     ? "text-blue-600 border-blue-600"
-                    : "text-gray-800 border-transparent hover:text-blue-600"
+                    : "text-gray-800 dark:text-gray-200 border-transparent hover:text-blue-600"
                 }`}
               >
                 {item.label}
@@ -51,21 +53,24 @@ const Navbar = () => {
           </nav>
         </div>
 
-        {/* Desktop Search */}
-        <div className="hidden md:flex items-center relative">
+        {/* Desktop Search + Theme Toggle */}
+        <div className="hidden md:flex items-center gap-2 relative">
           <Input placeholder="Search..." className="pr-8 w-48" />
-          <Search className="absolute right-2 text-gray-400" size={16} />
+          <Search className="absolute left-[calc(100%-4.5rem)] text-gray-400" size={16} />
+          <Button variant="ghost" size="icon" onClick={toggleTheme}>
+            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </Button>
         </div>
 
-        {/* Mobile Hamburger */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="md:hidden"
-          onClick={() => setOpen(true)}
-        >
-          <Menu size={20} />
-        </Button>
+        {/* Mobile Hamburger + Theme Toggle */}
+        <div className="md:hidden flex items-center gap-1">
+          <Button variant="ghost" size="icon" onClick={toggleTheme}>
+            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </Button>
+          <Button variant="ghost" size="icon" onClick={() => setOpen(true)}>
+            <Menu size={20} />
+          </Button>
+        </div>
       </div>
 
       {/* Mobile Sheet */}
@@ -86,8 +91,8 @@ const Navbar = () => {
               }}
               className={`px-4 py-3 text-sm text-left transition-colors ${
                 location.pathname === item.path
-                  ? "text-blue-600 bg-blue-50"
-                  : "text-gray-800 hover:bg-gray-50"
+                  ? "text-blue-600 bg-blue-50 dark:bg-blue-950"
+                  : "text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
               }`}
             >
               {item.label}

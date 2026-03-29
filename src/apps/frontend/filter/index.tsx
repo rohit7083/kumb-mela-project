@@ -21,7 +21,7 @@ export default function FilterComponent() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
 
-  const filtered = data.filter((item) => {
+  data.filter((item) => {
     const matchSearch = item.name
       .toLowerCase()
       .includes(search.toLowerCase());

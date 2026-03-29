@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Badge } from "../../../../components/ui/badge";
 
 /* ================= TYPES ================= */
 interface TimelineItem {
@@ -111,22 +112,26 @@ const HistoryPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* HEADER */}
-      <div
-        className="pt-24 pb-12 px-4 text-left"
-        style={{
-          // background: "linear-gradient(135deg, #78350f 0%, #92400e 100%)",
-          background: "black",
-        }}
-      >
-        <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            History & Culture 📖
-          </h1>
-          <p className="text-amber-100 text-lg max-w-2xl">
-            Explore 4000 years of Nashik's rich history
-          </p>
-        </div>
-      </div>
+    <div
+  className="pt-10 pb-8 px-4 text-left text-white"
+  style={{ background: "black" }}
+>
+  <div className="max-w-6xl mx-auto space-y-5">
+    
+    <Badge className="bg-white text-blue-700 w-fit">
+      History & Culture
+    </Badge>
+
+    <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+      History & Culture 📖
+    </h1>
+
+    <p className="text-amber-100 text-lg max-w-2xl">
+      Explore 4000 years of Nashik's rich history
+    </p>
+
+  </div>
+</div>
       {/* TIMELINE */}
       <div className="container mx-auto px-4 py-10">
         <div className="relative">

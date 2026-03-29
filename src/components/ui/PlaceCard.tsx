@@ -1,5 +1,3 @@
-import React from "react";
-
 const PlaceCard = ({ place }: any) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-xl transition overflow-hidden">

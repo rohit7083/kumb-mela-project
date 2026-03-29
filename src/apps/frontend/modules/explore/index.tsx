@@ -213,10 +213,10 @@
 
 
 
+import PlaceCard from "@/components/ui/PlaceCard";
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { attractions, categories } from "./data";
-import PlaceCard from "@/components/ui/PlaceCard";
 
 const ExplorePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -302,6 +302,7 @@ const ExplorePage = () => {
 
           {/* Search */}
           <div className="flex gap-3 max-w-2xl bg-white rounded-xl p-2">
+          
             <input
               type="text"
               value={searchQuery}
